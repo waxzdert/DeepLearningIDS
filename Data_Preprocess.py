@@ -1,11 +1,11 @@
 #將NSL-KDD取得的原始資料做必須的前處理
 
 #NSL-KDD檔案名稱
-NSL_KDD_plus_train    = '/Users/wudongye/Desktop/Tensorflow_works/Datasets/NSL_KDD/KDDTrain+.txt'
-NSL_KDD_plus_test     = '/Users/wudongye/Desktop/Tensorflow_works/Datasets/NSL_KDD/KDDTest+.txt'
-NSL_KDD_minus21_test  = '/Users/wudongye/Desktop/Tensorflow_works/Datasets/NSL_KDD/KDDTest-21.txt'
+NSL_KDD_plus_train    = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\\NSL_KDD\KDDTrain+.txt'
+NSL_KDD_plus_test     = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\\NSL_KDD\KDDTest+.txt'
+NSL_KDD_minus21_test  = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\\NSL_KDD\KDDTest-21.txt'
 
-file_choose = eval(input('Please choose the data which want to preprocess?\n1:NSL_KDD_Train\n2:Test\n3:KDDTest-21'))
+file_choose = eval(input('Please choose the data which want to preprocess?\n1:NSL_KDD_Train\n2:Test\n3:KDDTest-21\n'))
 
 if file_choose == 1:
     file_name = NSL_KDD_plus_train

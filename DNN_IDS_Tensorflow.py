@@ -55,11 +55,11 @@ def feed_data(label_dict):
     return (x,y)
 
 #設定訓練資料
-training_file_name = '\\Users\Maxwu\Desktop\Tensorflow_works/Extracted_for_train.txt'
+training_file_name = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Extracted_for_train.txt'
 training_data_dict = Load_data(training_file_name)
 
 #設定測試資料
-testing_file_name  = '\\Users\Maxwu\Desktop\Tensorflow_works/Extracted_for_test.txt'
+testing_file_name  = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Extracted_for_test.txt'
 testing_data_dict  = Load_data(testing_file_name)
 
 train_X, train_y = feed_data(training_data_dict)
@@ -67,9 +67,9 @@ test_X, test_y = feed_data(testing_data_dict)
 
 #設定Ｘ,y,和隱藏層的神經元數量
 x_size = (len(train_X[0]))
-hidden1_nodes = 50
-hidden2_nodes = 100
-hidden3_nodes = 50
+hidden1_nodes = 8
+hidden2_nodes = 2
+hidden3_nodes = 8
 y_size = (len(train_y[0]))
 
 #預留等等要傳入的資料的形狀
@@ -99,7 +99,7 @@ init = tf.global_variables_initializer()
 sess.run(init)
 
 result_file = 'result.txt'
-for epoch in range(2000):
+for epoch in range(20):
     for i in range(len(train_X)):
         sess.run(updates, feed_dict={X: train_X[i: i + 1], y: train_y[i: i + 1]})
     train_accuracy = np.mean(train_y == sess.run(predict, feed_dict={X:train_X, y: train_y}))

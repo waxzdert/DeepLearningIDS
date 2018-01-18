@@ -1,0 +1,2 @@
+Epoch = 20, train accuracy = 93.57, test accuracy = 68.81
+RunTime: 592.6013929843903 seconds
