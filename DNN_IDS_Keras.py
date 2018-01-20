@@ -78,15 +78,15 @@ model.add(Dense(units=20, kernel_initializer='uniform', activation='relu'))
 
 model.add(Dense(units=10, kernel_initializer='uniform', activation='relu'))
 
-model.add(Dense(units=1, kernel_initializer='uniform', activation='sigmoid'))
+model.add(Dense(units=2, kernel_initializer='uniform', activation='sigmoid'))
 
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-train_history = model.fit(x=all_train_Features, y=all_train_Label, 
+train_history = model.fit(x=train_Features, y=train_Label, 
                             validation_split=0.1, epochs=10, batch_size=30, 
                             verbose=2)
 print('\n')
-scores = model.evaluate(x=all_test_Features, y=all_train_Label)
+scores = model.evaluate(x=test_Features, y=test_Label)
 
 print('\n')
 print('Run Time = %.2s seconds' % (time.time() - StartTime))
