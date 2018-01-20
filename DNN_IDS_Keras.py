@@ -54,8 +54,8 @@ def Data_Preprocess(raw_data):
 #file_name = 'C:\\Users\Maxwu\Desktop\Tensorflow_works\Datasets\\NSL_KDD\KDDTrain+_Preprocess.xlsx'
 #讀入檔案切割其中1000筆來測試
 #file_name = '//Users/wudongye/Desktop/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv'#in OSX
-#file_name = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\KDDcombined+_Raw.csv'#in Windows
-file_name = '//Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv' #in OSX
+file_name = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\KDDcombined+_Raw.csv'#in Windows
+#file_name = '//Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv' #in OSX
 all_data = pd.read_csv(file_name)
 
 
@@ -86,7 +86,7 @@ model.add(Dense(units=20, kernel_initializer='uniform', activation='relu'))
 
 model.add(Dense(units=10, kernel_initializer='uniform', activation='relu'))
 
-model.add(Dense(units=2, kernel_initializer='uniform', activation='sigmoid'))
+model.add(Dense(units=1, kernel_initializer='uniform', activation='sigmoid'))
 
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
