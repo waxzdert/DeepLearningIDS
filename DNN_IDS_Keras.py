@@ -33,26 +33,29 @@ def Data_Preprocess(raw_data):
     #output all of the label 
     Label = data_array[:,0]
     #output all of the feature
-    Feature = data_array[:,1:]
-
+    Features = data_array[:,1:]
+    
     #Normalization
     #import the module 
+    '''
     from sklearn import preprocessing
 
     #use the preprocessing that can normalize the feature 
     minmax_scale = preprocessing.MinMaxScaler(feature_range=(0, 1))
 
     #make the features transfer to 0~1
-    scaled_Features = minmax_scale.fit_transform(Feature)
-
+    scaled_Features = minmax_scale.fit_transform(Features)
+    
     return scaled_Features, Label
+    '''
+    return Features, Label
 
 #讀入檔案
 #file_name = 'C:\\Users\Maxwu\Desktop\Tensorflow_works\Datasets\\NSL_KDD\KDDTrain+_Preprocess.xlsx'
 #讀入檔案切割其中1000筆來測試
 #file_name = '//Users/wudongye/Desktop/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv'#in OSX
-file_name = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\KDDcombined+_Raw.csv'#in Windows
-
+#file_name = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\KDDcombined+_Raw.csv'#in Windows
+file_name = '//Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv' #in OSX
 all_data = pd.read_csv(file_name)
 
 
@@ -63,6 +66,11 @@ train_Features = all_Features[mask]
 train_Label = all_Label[mask]
 test_Features = all_Features[~mask]
 test_Label = all_Label[~mask]
+
+'''
+print(train_Features.shape)
+print(test_Features.shape)
+'''
 
 
 from keras.models import Sequential
@@ -102,4 +110,3 @@ for i in range(1000):
     print(all_data[i:i+1])
     time.sleep(1)
 '''
-
