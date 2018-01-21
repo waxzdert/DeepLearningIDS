@@ -90,6 +90,8 @@ model.add(Dense(units=1, kernel_initializer='uniform', activation='sigmoid'))
 
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
+model.summary()
+
 train_history = model.fit(x=train_Features, y=train_Label, 
                             validation_split=0.1, epochs=10, batch_size=30, 
                             verbose=2)

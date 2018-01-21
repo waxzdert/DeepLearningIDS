@@ -66,3 +66,40 @@ train_Features = all_Features[mask]
 train_Label = all_Label[mask]
 test_Features = all_Features[~mask]
 test_Label = all_Label[~mask]
+
+print('volumn:',len(train_Features))
+print('dimention:',train_Features.shape)
+
+
+from keras.models import Sequential
+from keras.layers.core import Dense, Dropout, Activation
+from keras.layers.embeddings import Embedding
+from keras.layers.recurrent import LSTM
+
+model = Sequential()
+
+
+model.add(LSTM(units=107, input_shape=(None, 107), return_sequences=True))
+
+
+model.add(Dense(units=10, activation='relu'))
+model.add(Dropout(0.3))
+
+model.add(Dense(units=1, activation='sigmoid'))
+
+model.summary()
+
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+train_history = model.fit(x=train_Features, y=train_Label, 
+                            validation_split=0.1, epochs=10, batch_size=30, 
+                            verbose=2)
+print('\n')
+scores = model.evaluate(x=test_Features, y=test_Label, verbose=1)
+
+print('\n')
+print('Run Time = %.2s seconds' % (time.time() - StartTime))
+
+print('\n')
+print('Test accuracy: %.3f' % scores[1])
+
