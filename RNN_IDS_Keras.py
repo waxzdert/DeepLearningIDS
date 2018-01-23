@@ -67,8 +67,8 @@ train_Label = all_Label[mask]
 test_Features = all_Features[~mask]
 test_Label = all_Label[~mask]
 
-print('volumn:',len(train_Features))
-print('dimention:',train_Features.shape)
+#print('volumn:',len(train_Features))
+#print('dimention:',train_Features.shape)
 
 
 from keras.models import Sequential
@@ -78,7 +78,7 @@ from keras.layers.recurrent import LSTM
 
 model = Sequential()
 #model.add(Embedding(107, 107))
-model.add(Dense(32, input_shape=(107,)))
+model.add(Dense(output_dim=32, input_shape=( 3, 107)))
 model.add(LSTM(32, dropout=0.2, recurrent_dropout=0.2))
 model.add(Dense(1, activation='sigmoid'))
 
