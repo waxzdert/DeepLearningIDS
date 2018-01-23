@@ -69,7 +69,12 @@ train_Label = all_Label[mask]
 test_Features = all_Features[~mask]
 test_Label = all_Label[~mask]
 
+<<<<<<< HEAD
 print (test_Label.shape)
+=======
+#print('volumn:',len(train_Features))
+#print('dimention:',train_Features.shape)
+>>>>>>> 637ead1a81357f32a02cc8130fbe250406d0e732
 
 #print('volumn:',len(train_Features))
 #print('dimention:',train_Features.shape)
@@ -83,8 +88,13 @@ from keras.layers.recurrent import SimpleRNN
 
 model = Sequential()
 #model.add(Embedding(107, 107))
+<<<<<<< HEAD
 # model.add(Dense(units=32, input_dim= 123))
 model.add(SimpleRNN(units=123, input_dim = 123))
+=======
+model.add(Dense(output_dim=32, input_shape=(3, 107)))
+model.add(LSTM(32, dropout=0.2, recurrent_dropout=0.2))
+>>>>>>> 637ead1a81357f32a02cc8130fbe250406d0e732
 model.add(Dense(1, activation='sigmoid'))
 
 # try using different optimizers and different optimizer configs
