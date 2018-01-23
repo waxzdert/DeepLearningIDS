@@ -83,5 +83,15 @@ def layer(output_dim, input_dim, inputs, activation=None):
 
 x = tf.placeholder("float", [None, 784])
 
-h1 = layer(output_dim=50, input_dim=123, inputs=x, activation=tf.nn.relu)
+h1 = layer(output_dim=60, input_dim=123, inputs=x, activation=tf.nn.relu)
+h2 = layer(output_dim=50, input_dim=60, inputs=h1, activation=tf.nn.relu)
+h3 = layer(output_dim=40, input_dim=50, inputs=h2, activation=tf.nn.relu)
+h4 = layer(output_dim=30, input_dim=40, inputs=h3, activation=tf.nn.relu)
+h5 = layer(output_dim=20, input_dim=30, inputs=h4, activation=tf.nn.relu)
+h5 = layer(output_dim=10, input_dim=20, inputs=h4, activation=tf.nn.relu)
+h5 = layer(output_dim=1, input_dim=10, inputs=h4, activation=tf.nn.relu)
+y_predict = layer(output_dim=)
             
+
+
+

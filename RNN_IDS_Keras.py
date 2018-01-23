@@ -54,8 +54,8 @@ def Data_Preprocess(raw_data):
 #file_name = 'C:\\Users\Maxwu\Desktop\Tensorflow_works\Datasets\\NSL_KDD\KDDTrain+_Preprocess.xlsx'
 #讀入檔案切割其中1000筆來測試
 #file_name = '//Users/wudongye/Desktop/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv'#in OSX
-#file_name = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\KDDcombined+_Raw.csv'#in Windows
-file_name = '//Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv' #in OSX
+file_name = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\KDDcombined+_Raw.csv'#in Windows
+#file_name = '//Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv' #in OSX
 all_data = pd.read_csv(file_name)
 
 
@@ -67,8 +67,8 @@ train_Label = all_Label[mask]
 test_Features = all_Features[~mask]
 test_Label = all_Label[~mask]
 
-print('volumn:',len(train_Features))
-print('dimention:',train_Features.shape)
+#print('volumn:',len(train_Features))
+#print('dimention:',train_Features.shape)
 
 
 from keras.models import Sequential
