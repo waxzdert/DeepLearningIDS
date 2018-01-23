@@ -2,6 +2,8 @@ import sklearn
 import numpy as np
 import pandas as pd
 import time
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 np.random.seed(9)
 #計算程式執行時間
 StartTime = time.time()
@@ -67,19 +69,22 @@ train_Label = all_Label[mask]
 test_Features = all_Features[~mask]
 test_Label = all_Label[~mask]
 
+print (test_Label.shape)
+
 #print('volumn:',len(train_Features))
 #print('dimention:',train_Features.shape)
-
+train_Features = train_Features.reshape((-1, 1, 123))
+test_Features = test_Features.reshape((-1, 1, 123))
 
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.layers.embeddings import Embedding
-from keras.layers.recurrent import LSTM
+from keras.layers.recurrent import SimpleRNN
 
 model = Sequential()
 #model.add(Embedding(107, 107))
-model.add(Dense(32, input_shape=(107,)))
-model.add(LSTM(32, dropout=0.2, recurrent_dropout=0.2))
+# model.add(Dense(units=32, input_dim= 123))
+model.add(SimpleRNN(units=123, input_dim = 123))
 model.add(Dense(1, activation='sigmoid'))
 
 # try using different optimizers and different optimizer configs
@@ -87,9 +92,11 @@ model.compile(loss='binary_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
-print('Train...')
+print('\nTrain...\n')
 model.fit(train_Features, train_Label,epochs=15,validation_data=(train_Features, train_Label))
 score, acc = model.evaluate(test_Features, test_Label)
-print('Test score:', score)
-print('Test accuracy:', acc)
+print('\nTest score:', score)
+print('\nTest accuracy:', acc)
 
+print('\n')
+print('Run Time = %.2s seconds' % (time.time() - StartTime))
