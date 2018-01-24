@@ -22,12 +22,14 @@ def Data_Preprocess(raw_data):
     #find the 'normal' label index that can do the replacement of this feature.   result label index:0
     '''i, = np.where(data_array[0]=='normal')'''
 
+    '''
     #transfer the result to numeric type
     for x in range(len(data_array)):
         if data_array[x][0]!='normal':
             data_array[x][0]=1
         else:
             data_array[x][0]=0
+    '''
 
     #output the shape of the numpy data array
     '''print(data_array.shape)'''
@@ -69,12 +71,7 @@ train_Label = all_Label[mask]
 test_Features = all_Features[~mask]
 test_Label = all_Label[~mask]
 
-<<<<<<< HEAD
 print (test_Label.shape)
-=======
-#print('volumn:',len(train_Features))
-#print('dimention:',train_Features.shape)
->>>>>>> 637ead1a81357f32a02cc8130fbe250406d0e732
 
 #print('volumn:',len(train_Features))
 #print('dimention:',train_Features.shape)
@@ -88,14 +85,9 @@ from keras.layers.recurrent import SimpleRNN
 
 model = Sequential()
 #model.add(Embedding(107, 107))
-<<<<<<< HEAD
 # model.add(Dense(units=32, input_dim= 123))
 model.add(SimpleRNN(units=123, input_dim = 123))
-=======
-model.add(Dense(output_dim=32, input_shape=(3, 107)))
-model.add(LSTM(32, dropout=0.2, recurrent_dropout=0.2))
->>>>>>> 637ead1a81357f32a02cc8130fbe250406d0e732
-model.add(Dense(1, activation='sigmoid'))
+model.add(Dense(5, activation='sigmoid'))
 
 # try using different optimizers and different optimizer configs
 model.compile(loss='binary_crossentropy',
