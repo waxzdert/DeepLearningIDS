@@ -22,14 +22,14 @@ def Data_Preprocess(raw_data):
     #find the 'normal' label index that can do the replacement of this feature.   result label index:0
     '''i, = np.where(data_array[0]=='normal')'''
 
-    '''
+    
     #transfer the result to numeric type
     for x in range(len(data_array)):
         if data_array[x][0]!='normal':
             data_array[x][0]=1
         else:
             data_array[x][0]=0
-    '''
+    
 
     #output the shape of the numpy data array
     '''print(data_array.shape)'''
@@ -87,7 +87,7 @@ model = Sequential()
 #model.add(Embedding(107, 107))
 # model.add(Dense(units=32, input_dim= 123))
 model.add(SimpleRNN(units=123, input_dim = 123))
-model.add(Dense(5, activation='sigmoid'))
+model.add(Dense(1, activation='sigmoid'))
 
 # try using different optimizers and different optimizer configs
 model.compile(loss='binary_crossentropy',
