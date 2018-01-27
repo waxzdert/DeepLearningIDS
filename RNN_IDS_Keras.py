@@ -22,14 +22,14 @@ def Data_Preprocess(raw_data):
     #find the 'normal' label index that can do the replacement of this feature.   result label index:0
     '''i, = np.where(data_array[0]=='normal')'''
 
-    '''
+    
     #transfer the result to numeric type
     for x in range(len(data_array)):
         if data_array[x][0]!='normal':
             data_array[x][0]=1
         else:
             data_array[x][0]=0
-    '''
+    
 
     #output the shape of the numpy data array
     '''print(data_array.shape)'''
@@ -58,8 +58,8 @@ def Data_Preprocess(raw_data):
 #file_name = 'C:\\Users\Maxwu\Desktop\Tensorflow_works\Datasets\\NSL_KDD\KDDTrain+_Preprocess.xlsx'
 #讀入檔案切割其中1000筆來測試
 #file_name = '//Users/wudongye/Desktop/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv'#in OSX
-file_name = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\KDDcombined+_Raw.csv'#in Windows
-#file_name = '//Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv' #in OSX
+#file_name = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\KDDcombined+_Raw.csv'#in Windows
+file_name = '//Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/KDDTrain+_Raw.csv' #in OSX
 all_data = pd.read_csv(file_name)
 
 
@@ -87,7 +87,7 @@ model = Sequential()
 #model.add(Embedding(107, 107))
 # model.add(Dense(units=32, input_dim= 123))
 model.add(SimpleRNN(units=123, input_dim = 123))
-model.add(Dense(5, activation='sigmoid'))
+model.add(Dense(1, activation='sigmoid'))
 
 # try using different optimizers and different optimizer configs
 model.compile(loss='binary_crossentropy',
