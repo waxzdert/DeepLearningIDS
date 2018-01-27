@@ -86,8 +86,8 @@ from keras.layers.recurrent import SimpleRNN
 model = Sequential()
 #model.add(Embedding(107, 107))
 # model.add(Dense(units=32, input_dim= 123))
-model.add(SimpleRNN(units=123, input_dim = 123))
-model.add(Dense(1, activation='sigmoid'))
+model.add(SimpleRNN(units=123, input_shape = 123))
+model.add(Dense(5, activation='sigmoid'))
 
 # try using different optimizers and different optimizer configs
 model.compile(loss='binary_crossentropy',
