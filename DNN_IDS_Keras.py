@@ -96,7 +96,7 @@ train_history = model.fit(x=train_Features, y=train_Label,
                             validation_split=0.1, epochs=10, batch_size=30, 
                             verbose=2)
 print('\n')
-scores = model.evaluate(x=test_Features, y=test_Label)
+scores = model.evaluate(x=test_Features, y=test_Label)#score....
 
 print('\n')
 print('Run Time = %.2s seconds' % (time.time() - StartTime))
