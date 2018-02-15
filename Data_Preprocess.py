@@ -1,20 +1,11 @@
 #將NSL-KDD取得的原始資料做必須的前處理
 
 #NSL-KDD檔案名稱
-NSL_KDD_plus_train    = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\\NSL_KDD\KDDTrain+.txt'
-NSL_KDD_plus_test     = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\\NSL_KDD\KDDTest+.txt'
-NSL_KDD_minus21_test  = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\\NSL_KDD\KDDTest-21.txt'
+#file_name    = '/Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/NSL_KDD/KDDTrain+.txt'
+file_name     = '/Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/NSL_KDD/KDDTest+.txt'
+#NSL_KDD_minus21_test  = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\\NSL_KDD\KDDTest-21.txt'
 
-file_choose = eval(input('Please choose the data which want to preprocess?\n1:NSL_KDD_Train\n2:Test\n3:KDDTest-21\n'))
 
-if file_choose == 1:
-    file_name = NSL_KDD_plus_train
-elif file_choose == 2:
-    file_name = NSL_KDD_plus_test
-elif file_choose == 3:
-    file_name = NSL_KDD_minus21_test
-else:
-    pass
 
 #從NSL-KDD分類的資料中挑選所需的標籤(Labels)
 wanted_feature = [41,0,1,4,5,22,23] #挑選的特徵

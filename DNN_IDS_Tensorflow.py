@@ -55,11 +55,12 @@ def feed_data(label_dict):
     return (x,y)
 
 #設定訓練資料
-training_file_name = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Extracted_for_train.txt'
+training_file_name = '/Users/wudongye/Documents/GitHub/DeepLearningIDS/Extracted_for_train.txt'
 training_data_dict = Load_data(training_file_name)
 
 #設定測試資料
-testing_file_name  = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Extracted_for_test.txt'
+testing_file_name  = '/Users/wudongye/Documents/GitHub/DeepLearningIDS/Extracted_for_train.txt'
+
 testing_data_dict  = Load_data(testing_file_name)
 
 train_X, train_y = feed_data(training_data_dict)
