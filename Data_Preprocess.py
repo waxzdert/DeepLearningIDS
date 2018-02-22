@@ -1,18 +1,12 @@
 #將NSL-KDD取得的原始資料做必須的前處理
 
 #NSL-KDD檔案名稱
-<<<<<<< HEAD
-file_name = 'C:\\Users\\Maxwu\\Documents\\GitHub\\DeepLearningIDS\\Datasets\\KDDTrain+_Raw_1000.csv'
-=======
-#file_name    = '/Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/NSL_KDD/KDDTrain+.txt'
-file_name     = '/Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/NSL_KDD/KDDTest+.txt'
+
+file_name     = '/Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv'
 #NSL_KDD_minus21_test  = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\\NSL_KDD\KDDTest-21.txt'
 
-
->>>>>>> 22e5181e1670865fba35210d6e4ad30a8d94cb18
-
 #從NSL-KDD分類的資料中挑選所需的標籤(Labels)
-wanted_feature = [1,1,2,5,6,23,24] #挑選的特徵
+wanted_feature = [0,1,2,5,6,23,24] #挑選的特徵
 # 41: attack_or_not
 # 0 : Duration
 # 1 : Protocol_type
@@ -32,7 +26,7 @@ for x in lines:
 
 #將挑選出來的標籤中的Protocol_types轉換為數字
 for x in range(len(temp_data)):
-	temp_data[x]=[w.replace('tcp','001').replace('udp','010').replace('icmp','100') for w in temp_data[x]]
+	temp_data[x]=[w.replace('tcp','1').replace('udp','2').replace('icmp','3') for w in temp_data[x]]
 
 #將挑選出來的標籤中的attack_or_not轉換為數字
 for x in range(len(temp_data)):

@@ -14,24 +14,25 @@ def feed_data(file_name):
     for each_line in lines[1:]:
         label.append(each_line[0])
         feature.append(each_line[2:].strip().split(','))
+    
+    for i in range(len(feature)):
+        for j in range(len(feature[i])):
+            temp.append(eval(feature[i][j]))
+        #print(temp)
+        feature[i] = temp
+        temp = []
+        print(feature[i])
+        print(label[i])
+        time.sleep(1)
 
-    '''
-    temp.append(eval(feature[0][0]))
-    temp.append(eval(feature[0][1]))
-    temp.append(eval(feature[0][2]))
-    temp.append(eval(feature[0][3]))
-    temp.append(eval(feature[0][4]))
-    temp.append(eval(feature[0][5]))
 
-    print(tmep)
-    '''
-    print(feature[0])
     return (feature, label)
 
 
-file_name1 = 'C:\\Users\\Maxwu\\Documents\\GitHub\\DeepLearningIDS\\Extracted_for_test.csv'
+file_name_win = 'C:\\Users\\Maxwu\\Documents\\GitHub\\DeepLearningIDS\\Extracted_for_test.csv'
+file_name_osx = '/Users/wudongye/Documents/GitHub/DeepLearningIDS/Extracted_for_test.csv'
 
-output_feature, ouput_label = feed_data(file_name1)
+output_feature, ouput_label = feed_data(file_name_osx)
 #print(output_feature)
 #print(ouput_label)
 
