@@ -1,6 +1,7 @@
 import numpy as np
 #import pylab as pl
 from sklearn import svm
+import time
 
 
 def feed_data(file_name):
@@ -28,12 +29,12 @@ def feed_data(file_name):
 
     return (feature, label)
 
-
+start_time = time.time()
 
 file_name_win = 'C:\\Users\\Maxwu\\Documents\\GitHub\\DeepLearningIDS\\Extracted_for_test.csv'
 file_name_osx = '/Users/wudongye/Documents/GitHub/DeepLearningIDS/Extracted_for_test.csv'
 
-output_feature, ouput_label = feed_data(file_name_osx)
+output_feature, ouput_label = feed_data(file_name_win)
 #print(output_feature)
 #print(ouput_label)
 
@@ -48,3 +49,9 @@ print('\n')
 print(clf.support_)
 print('\n')
 print(clf.n_support_)
+
+print('\n')
+print('-------------------------------------------')
+print('\n')
+runtime = time.time() - start_time
+print('Run time ：', runtime,' sec')
