@@ -1,16 +1,18 @@
 import numpy as np
+import pylab as pl
 from sklearn import svm
 import time
 
 
 def feed_data(file_name):
     #從檔案中讀入所有資料(字串)，並取得資料總量(整數)
-    #print('\n')
+    print('\n')
     with open(file_name) as file_index:
         lines = file_index.readlines()
         print('Loading Data', end=' ')
         for i in range(3):
             print('.', end='')
+            time.sleep(3)
     
     #從每筆資料當中切割出 'Label' 和 'Feature' 
     temp = []
@@ -23,12 +25,9 @@ def feed_data(file_name):
     for i in range(len(feature)):
         for j in range(len(feature[i])):
             temp.append(eval(feature[i][j]))
-        #print(temp)
         feature[i] = temp
         temp = []
-        #print(feature[i])
-        #print(label[i])
-        #time.sleep(1)
+
     print('\n')
     print('Loading finish...')
     return (feature, label)
@@ -40,6 +39,7 @@ file_name_osx = '/Users/wudongye/Documents/GitHub/DeepLearningIDS/Extracted_for_
 
 output_feature, ouput_label = feed_data(file_name_win)
 print('Start to build the model...\n')
+
 #print(output_feature)
 #print(ouput_label)
 
@@ -48,7 +48,6 @@ clf.fit(output_feature, ouput_label)
 
 print('\n')
 print('build finished...\n')
-
 print('\n')
 print(clf)
 print('\n')

@@ -1,2 +1,4 @@
 {
+    "python.pythonPath": "C:\\Users\\Maxwu\\AppData\\Local\\conda\\conda\\envs\\tensorflow\\python.exe",
+    "python.linting.enabled": true
 }
