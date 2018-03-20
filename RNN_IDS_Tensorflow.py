@@ -59,8 +59,8 @@ def Data_Preprocess(raw_data):
 #file_name = 'C:\\Users\Maxwu\Desktop\Tensorflow_works\Datasets\\NSL_KDD\KDDTrain+_Preprocess.xlsx'
 #讀入檔案切割其中1000筆來測試
 #file_name = '//Users/wudongye/Desktop/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv'#in OSX
-#file_name = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\KDDcombined+_Raw.csv'#in Windows
-file_name = '//Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv' #in OSX
+file_name = 'C:\\Users\\MaxWu\\Documents\\GitHub\\DeepLearningIDS\\Datasets\\KDDTrain+_Raw_1000.csv'#in Windows
+#file_name = '//Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv' #in OSX
 all_data = pd.read_csv(file_name)
 
 
@@ -72,76 +72,74 @@ train_Label = all_Label[mask]
 test_Features = all_Features[~mask]
 test_Label = all_Label[~mask]
 
-# Training Parameters
+#hyperparameter
 learning_rate = 0.001
-training_steps = 10000
-batch_size = 100
-display_step = 200
+n_classes = 2
+display_step = 100
+input_features = train_Features.shape[1] #No of selected features(columns)
+training_cycles = 1000
+time_steps = 5 # No of time-steps to backpropogate
+hidden_units = 50 #No of LSTM units in a LSTM Hidden Layer
 
-# Network Parameters
-num_input = 1
-timesteps = 107
-num_hidden = 3
-num_class = 2
+#Input Placeholders
+with tf.name_scope('input'):
+    x = tf.placeholder(tf.float64,shape = [None,time_steps,input_features], name = "x-input")
+    y = tf.placeholder(tf.float64, shape = [None,n_classes],name = "y-input")
+#Weights and Biases
+with tf.name_scope("weights"):
+    W = tf.Variable(tf.random_normal([hidden_units,n_classes]),name = "layer-weights")
 
-# Tensorflow Graph placeholder
-X = tf.placeholder("float", [None, timesteps], "input_x")
-Y = tf.placeholder("float", [None, num_class], "output_y")
+with tf.name_scope("biases"):
+    b = tf.Variable(tf.random_normal([n_classes]),name = "unit-biases")
 
-# Define Weight & Bias
-weights = {'out':tf.Variable(tf.random_normal([num_hidden, num_class]))}
-bias = {'out':tf.Variable(tf.random_normal([num_class]))}
+#Unstacking the inputs with time steps to provide the inputs in sequence
+# Unstack to get a list of 'time_steps' tensors of shape (batch_size, input_features)
+x_ = tf.unstack(x,time_steps,axis =1)
 
-# Define the Recurrent Neural Network
-def RNN(x, weights, bias):
-    #x = tf.unstack(x, timesteps, 1)
+#Defining a single GRU cell
+rnn_cell = rnn.BasicRNNCell(hidden_units)
 
-    # Define the rnn cell with tensorflow
-    rnn_cell = rnn.BasicRNNCell(x, None)
+#GRU Output
+with tf.variable_scope('RNN'):
+    rnnoutputs,rnnstates = rnn.static_rnn(rnn_cell,x_,dtype=tf.float64)
+    
+#Linear Activation , using gru inner loop last output
+output =  tf.add(tf.matmul(rnnoutputs[-1],tf.cast(W,tf.float64)),tf.cast(b,tf.float64))
 
-    # Get the output
-    output, states = rnn.static_rnn(rnn_cell, x, dtype=tf.float32)
+#Defining the loss function
+cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y,logits = output))
+optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
 
-    return tf.matmul(output[-1], weights['out']) + bias['out']
+#Training the Model
+sess = tf.InteractiveSession()
+sess.run(tf.global_variables_initializer())
+for i in range (training_cycles):
+    _,c = sess.run([optimizer,cost], feed_dict = {x:train_Features, y:train_Label})
+    
+    if (i) % display_step == 0:
+        print ("Cost for the training cycle : ",i," : is : ",sess.run(cost, feed_dict ={x :train_Features,y:train_Label}))
+correct = tf.equal(tf.argmax(output, 1), tf.argmax(y,1))
+accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
+print('Accuracy on the overall test set is :',accuracy.eval({x:test_Features, y:test_Label}))
 
-logits = RNN(X, weights, bias)
-prediction = tf.nn.softmax(logits)
+# Therefore, we are extracting the final labels => '1 0' = '1' = Normal (and vice versa)
+# Steps to calculate the confusion matrix
 
-# Define loss and optimizer
-loss_op = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=Y))
-optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)
-train_op = optimizer.minimize(loss_op)
+pred_class = sess.run(tf.argmax(output,1),feed_dict = {x:test_Features,y:test_Label})
+labels_class = sess.run(tf.argmax(y,1),feed_dict = {x:test_Features,y:test_Label})
+conf = tf.contrib.metrics.confusion_matrix(labels_class,pred_class,dtype = tf.int32)
+ConfM = sess.run(conf, feed_dict={x:test_Features,y:test_Label})
+print ("confusion matrix \n",ConfM)
 
-# Evaluate model (with test logits, for dropout to be disabled)
-correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(Y, 1))
-accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
-
-# Initialize the variables (i.e. assign their default value)
-init = tf.global_variables_initializer()
-
-# Start training
-with tf.Session() as sess:
-
-    # Run the initializer
-    sess.run(init)
-
-    for step in range(1, len(train_Features)):
-        # Run optimization op (backprop)
-        sess.run(train_op, feed_dict={X: train_Features, Y: train_Label})
-        if step % display_step == 0 or step == 1:
-            # Calculate batch loss and accuracy
-            loss, acc = sess.run([loss_op, accuracy], feed_dict={X: train_Features,
-                                                                 Y: train_Label})
-            print("Step " + str(step) + ", Minibatch Loss= " + \
-                  "{:.4f}".format(loss) + ", Training Accuracy= " + \
-                  "{:.3f}".format(acc))
-
-    print("Optimization Finished!")
-
-    # Calculate accuracy 
-    test_data = test_Features
-    test_label = test_Label
-    print("Testing Accuracy:", \
-        sess.run(accuracy, feed_dict={X: test_Features, Y: test_Label}))
-
-
+#Plotting the Confusion Matrix
+labels = ['Normal', 'Attack']
+fig = plt.figure()
+ax = fig.add_subplot(111)
+cax = ax.matshow(ConfM)
+plt.title('Confusion matrix of the classifier')
+fig.colorbar(cax)
+ax.set_xticklabels([''] + labels)
+ax.set_yticklabels([''] + labels)
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.show()

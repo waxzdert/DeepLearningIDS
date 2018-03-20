@@ -1,1 +1,4 @@
-{}
+{
+    "python.pythonPath": "C:\\Users\\MaxWu\\AppData\\Local\\conda\\conda\\envs\\tensorflow\\python.exe",
+    "python.linting.pylintEnabled": false
+}
