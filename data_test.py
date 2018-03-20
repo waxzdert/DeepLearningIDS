@@ -32,7 +32,7 @@ def feed_data(file_name):
 file_name_win = 'C:\\Users\\Maxwu\\Documents\\GitHub\\DeepLearningIDS\\Extracted_for_test.csv'
 file_name_osx = '/Users/wudongye/Documents/GitHub/DeepLearningIDS/Extracted_for_test.csv'
 
-output_feature, ouput_label = feed_data(file_name_osx)
+output_feature, ouput_label = feed_data(file_name_win)
 #print(output_feature)
 #print(ouput_label)
 

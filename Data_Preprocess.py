@@ -2,7 +2,8 @@
 
 #NSL-KDD檔案名稱
 
-file_name     = '/Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv'
+file_name_osx = '/Users/wudongye/Documents/GitHub/DeepLearningIDS/Datasets/KDDTrain+_Raw_1000.csv'
+file_name_win = 'C:\\Users\\Maxwu\\Documents\\GitHub\\DeepLearningIDS\\Datasets\\KDDTrain+_Raw_1000.csv'
 #NSL_KDD_minus21_test  = 'C:\\Users\Maxwu\Documents\GitHub\DeepLearningIDS\Datasets\\NSL_KDD\KDDTest-21.txt'
 
 #從NSL-KDD分類的資料中挑選所需的標籤(Labels)
@@ -15,7 +16,7 @@ wanted_feature = [0,1,2,5,6,23,24] #挑選的特徵
 # 22: counts
 # 23: srv_count
 
-with open(file_name) as file_index:
+with open(file_name_win) as file_index:
     lines = file_index.readlines()
     
 temp_data = []
@@ -36,7 +37,7 @@ for x in range(len(temp_data)):
         temp_data[x][0]='0'
 
 #輸出處理過後的檔案
-output_file = 'Extracted_for_test.csv'
+output_file = 'Extracted_for_test_1000.csv'
 temp_file = open(output_file,'w')
 temp_file.write('LABEL,FEAT_1,FEAT_2,FEAT_3,FEAT_4,FEAT_5,FEAT_6')
 
