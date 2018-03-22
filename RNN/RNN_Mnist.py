@@ -1,31 +1,15 @@
-# View more python learning tutorial on my Youtube and Youku channel!!!
-
-# Youtube video tutorial: https://www.youtube.com/channel/UCdyjiB5H8Pu7aDTNVXTTpcg
-# Youku video tutorial: http://i.youku.com/pythontutorial
-
-"""
-This code is a modified version of the code from this link:
-https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/recurrent_network.py
-His code is a very good one for RNN beginners. Feel free to check it out.
-"""
 import tensorflow as tf
-from tensorflow.examples.tutorials.mnist import input_data
 
 # set random seed for comparing the two result calculations
 tf.set_random_seed(1)
 
-# this is data
-mnist = input_data.read_data_sets('MNIST_data', one_hot=True)
-
 # hyperparameters
 lr = 0.001
-training_iters = 100000
-batch_size = 809
 
-n_inputs = 28   # MNIST data input (img shape: 28*28)
-n_steps = 28    # time steps
+n_inputs = 1   # MNIST data input (img shape: 28*28)
+n_steps = 107    # time steps
 n_hidden_units = 1   # neurons in hidden layer
-n_classes = 10      # MNIST classes (0-9 digits)
+n_classes = 1      # MNIST classes (0-9 digits)
 
 # tf Graph input
 x = tf.placeholder(tf.float32, [None, n_steps, n_inputs])
@@ -33,15 +17,15 @@ y = tf.placeholder(tf.float32, [None, n_classes])
 
 # Define weights
 weights = {
-    # (107, 1)
+    # (28, 128)
     'in': tf.Variable(tf.random_normal([n_inputs, n_hidden_units])),
-    # (1, 1)
+    # (128, 10)
     'out': tf.Variable(tf.random_normal([n_hidden_units, n_classes]))
 }
 biases = {
-    # (1, )
+    # (128, )
     'in': tf.Variable(tf.constant(0.1, shape=[n_hidden_units, ])),
-    # (1, )
+    # (10, )
     'out': tf.Variable(tf.constant(0.1, shape=[n_classes, ]))
 }
 
@@ -53,7 +37,6 @@ def RNN(X, weights, biases):
     # transpose the inputs shape from
     # X ==> (128 batch * 28 steps, 28 inputs)
     X = tf.reshape(X, [-1, n_inputs])
-
     # into hidden
     # X_in = (128 batch * 28 steps, 128 hidden)
     X_in = tf.matmul(X, weights['in']) + biases['in']
@@ -104,14 +87,16 @@ with tf.Session() as sess:
     sess.run(init)
     step = 0
 
-    while step * batch_size < training_iters:
+    while step < training_iters:
         batch_xs, batch_ys = mnist.train.next_batch(batch_size)
+        print(batch_xs.shape)
         batch_xs = batch_xs.reshape([batch_size, n_steps, n_inputs])
+        print(batch_xs.shape)
         sess.run([train_op], feed_dict={
             x: batch_xs,
             y: batch_ys,
         })
-        if step % 20 == 0:
+        if step % 20 == 0:           
             print(sess.run(accuracy, feed_dict={
             x: batch_xs,
             y: batch_ys,
