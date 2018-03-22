@@ -2,7 +2,7 @@ import tensorflow as tf
 import pandas as pd
 import math
 
-file = 'C:\\Users\\MaxWu\\Documents\\GitHub\\DeepLearningIDS\\Datasets\\KDDTrain+_Raw.csv'
+file = 'C:\\Users\\MaxWu\\Documents\\GitHub\\DeepLearningIDS\\Datasets\\KDDTrain+.csv'
 raw_data = pd.read_csv(file)
 
 #計算資料的特徵中有多少獨立項
@@ -30,7 +30,7 @@ def fir_norm(in_df):
     # such as : ‘duration[0,58329]’,‘src_bytes[0,1.3 × 109]’ and ‘dst_bytes
     # Logarithmic scaling method for scaling to obtain the ranges
     # (x,y) -> (log(x),log(y))
-    for i in range(len(in_df['Duartion'])):
+    for i in range(len(in_df['Duration'])):
         if (in_df.loc[i,('Duration')]) == 0:
             in_df.loc[i,('Duration')] = 0
         else:
@@ -48,6 +48,12 @@ def fir_norm(in_df):
         else:
             in_df.loc[i,('dst_bytes')] = round(math.log(in_df.loc[i,('dst_bytes')],10), 2)
 
-def sec_norm(in_df)
+def sec_norm(in_df):
     #
     # new Xi = ((old Xi)-min)/(Max-min)
+    pass
+
+OneHotData = one_hot(raw_data)
+fir_norm(OneHotData)
+
+OneHotData.to_csv('Processed_Data.csv')
