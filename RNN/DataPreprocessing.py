@@ -49,11 +49,47 @@ def fir_norm(in_df):
             in_df.loc[i,('dst_bytes')] = round(math.log(in_df.loc[i,('dst_bytes')],10), 2)
 
 def sec_norm(in_df):
-    #
+    # Normalize all the data in the dataframe
+    # let the data in the frame can 
     # new Xi = ((old Xi)-min)/(Max-min)
-    pass
+
+    from sklearn import preprocessing
+    # remove the feature with string which can't normalize
+    temp_data = in_df.drop('result', axis=1)
+
+    # let data transform the type from dataframe to numpy array
+    temp_data = temp_data.values
+
+    # Define a scaler that will feed nraw data afterward
+    # The scaler will normalize the data into new Xi = ((old Xi)-min)/(Max-min)
+    # And it's output will range from 0 to 1.
+    scaler = preprocessing.MinMaxScaler(feature_range=(0,1))
+
+    # feed the data to the scaler
+    temp_data = scaler.fit_transform(temp_data)
+
+    # Transfer the numpy array to dataframe
+    temp_data = pd.DataFrame(temp_data)
+
+    # merge the feature which remove first
+    temp_data = temp_data.join(in_df[['result']])
+
+    return temp_data
+
+def ren_idx(in_df):
+    # This function main use to rename the index of the dataset
+    
+    # Create a new index set
+    new_idx = []
+    for i in range(123):
+        new_idx.append(i)
+
+    in_df.columns = new_idx
+
 
 OneHotData = one_hot(raw_data)
 fir_norm(OneHotData)
+Processed_Data = sec_norm(OneHotData)
+ren_idx(Processed_Data)
 
-OneHotData.to_csv('Processed_Data.csv')
+Processed_Data.to_csv('Processed_Data.csv',index=False,index_label=False)
