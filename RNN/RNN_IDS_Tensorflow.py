@@ -86,8 +86,8 @@ newtrain_Y = train_Label.reshape(len(train_Label), n_classes)
 
 #Input Placeholders
 with tf.name_scope('input'):
-    x = tf.placeholder(tf.float32,shape = [None,time_steps,input_features], name = "x-input")
-    y = tf.placeholder(tf.float32, shape = [None,n_classes],name = "y-input")
+    x = tf.placeholder(tf.float64,shape = [None,time_steps,input_features], name = "x-input")
+    y = tf.placeholder(tf.float64, shape = [None,n_classes],name = "y-input")
 #Weights and Biases
 with tf.name_scope("weights"):
     W = tf.Variable(tf.random_normal([hidden_units,n_classes]),name = "layer-weights")
@@ -98,9 +98,9 @@ with tf.name_scope("biases"):
 rnn_cell = tf.contrib.rnn.BasicRNNCell(hidden_units)
 
 with tf.variable_scope('RNN'):
-    rnnoutputs,rnnstates = tf.nn.dynamic_rnn(rnn_cell,x,dtype=tf.float32)
+    rnnoutputs,rnnstates = tf.nn.dynamic_rnn(rnn_cell,x,dtype=tf.float64)
 
-output = tf.add(tf.matmul(rnnoutputs[-1],tf.cast(W,tf.float32)),tf.cast(b,tf.float32))
+output = tf.add(tf.matmul(rnnoutputs[-1],tf.cast(W,tf.float64)),tf.cast(b,tf.float64))
 
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(labels=y,logits=output))
 optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
