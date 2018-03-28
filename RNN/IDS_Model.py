@@ -21,6 +21,19 @@ def trans_fl(data):
 
     return features, labels
 
+# Prepare the training features and labels 
 train_features, train_labels = trans_fl(all_data)
+
+# Hyperparameters
+lr = 0.001 # Learning Rate : 優化函式降低loss的速度
+classes = 1 # the model can classify 0 is normal, 1 is attack
+hidden_units = 3 # The hidden units in the recurrent neural network
+input_shape = 119 # The shape feeded in the neural network
+time_steps = 1 # The steps of the input vector
+
+
+
+
+
         
 
