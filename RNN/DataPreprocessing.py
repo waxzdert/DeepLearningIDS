@@ -85,10 +85,17 @@ def ren_idx(in_df):
 
     in_df.columns = new_idx
 
+def label_trans(in_df):
+    for i in range(len(in_df[122])):
+        if (in_df.loc[i,122]) != 'normal':
+           in_df.loc[i,122] == 1
+        else:
+            in_df.loc[i,122] == 0
 
 OneHotData = one_hot(raw_data)
 fir_norm(OneHotData)
 Processed_Data = sec_norm(OneHotData)
 ren_idx(Processed_Data)
+label_trans(Processed_Data)
 
 Processed_Data.to_csv('Processed_Data.csv',index=False,index_label=False)
