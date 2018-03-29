@@ -1,4 +1,5 @@
 import pandas as pd
+import math
 
 file = 'C:\\Users\\MaxWu\\Documents\\GitHub\\DeepLearningIDS\\Datasets\\KDDTrain+.csv'
 raw_data = pd.read_csv(file)

@@ -29,11 +29,14 @@ lr = 0.001 # Learning Rate : 優化函式降低loss的速度
 classes = 1 # the model can classify 0 is normal, 1 is attack
 hidden_units = 3 # The hidden units in the recurrent neural network
 input_shape = 119 # The shape feeded in the neural network
-time_steps = 1 # The steps of the input vector sequence
+time_steps = 1 # The steps of the input vector sequence1
 
 # Prepare the placeholder that will feed in the neural network 
 X = tf.placeholder(dtype=tf.float64, shape=[None, time_steps, input_shape], name='X')
 Y = tf.placeholder(dtype=tf.float64, shape=[None, classes, name='Y'])
 
 # Define the Weight of the neuron i the neural network
-W = tf.Variable(tf.random_normal())
+W = tf.Variable(tf.random_normal([input_shape, classes]), name='W')
+b = tf.Variable(tf.random_normal([classes]),name='b')
+
+# Define 
