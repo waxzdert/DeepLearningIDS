@@ -86,6 +86,8 @@ def ren_idx(in_df):
     in_df.columns = new_idx
 
 def label_trans(in_df):
+    # 1 represent the traffic is an attack
+    # 0 represent the traffic is a normal traffic
     for i in range(len(in_df[123])):
         if (in_df.loc[i,123]) != 'normal':
            in_df.loc[i,123] = 1
