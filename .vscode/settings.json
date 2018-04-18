@@ -1,4 +1,5 @@
 {
     "python.pythonPath": "C:\\Users\\MaxWu\\AppData\\Local\\conda\\conda\\envs\\tensorflow\\python.exe",
-    "python.linting.pylintEnabled": true
+    "python.linting.pylintEnabled": true,
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe"
 }

@@ -86,11 +86,11 @@ def ren_idx(in_df):
     in_df.columns = new_idx
 
 def label_trans(in_df):
-    for i in range(len(in_df[122])):
-        if (in_df.loc[i,122]) != 'normal':
-           in_df.loc[i,122] == 1
+    for i in range(len(in_df[123])):
+        if (in_df.loc[i,123]) != 'normal':
+           in_df.loc[i,123] = 1
         else:
-            in_df.loc[i,122] == 0
+            in_df.loc[i,123] = 0
 
 OneHotData = one_hot(raw_data)
 fir_norm(OneHotData)
