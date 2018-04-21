@@ -1,13 +1,21 @@
 import tensorflow as tf
-import numpy as np
 import pandas as pd
+import numpy as np
+from tensorflow.contrib import rnn
+from sklearn.ensemble import RandomForestClassifier
+from sklearn import preprocessing
+import matplotlib.pylab as plt
+import time
 
-# Read file 
-train_file_path = 'C:\\Users\\MaxWu\\Documents\\GitHub\\DeepLearningIDS\\RNN\\Processed_Data_Train.csv'
-train_data = pd.read_csv(train_file_path)
+#Claculate the training time
+start_time = time.time()
 
-#test_file_path = ''
-#test_data = 
+#Read the training file path
+file_list = 'Processed_Data.csv'
+raw_data = pd.read_csv(file_path)
+
+test_file_path = ''
+test_data = 
 
 
 def trans_fl(data):

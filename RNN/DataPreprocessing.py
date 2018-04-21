@@ -1,8 +1,11 @@
 import pandas as pd
 import math
 
-file = 'C:\\Users\\MaxWu\\Documents\\GitHub\\DeepLearningIDS\\Datasets\\KDDTrain+.csv'
-raw_data = pd.read_csv(file)
+file_dict = {
+    'Train':'C:\\Users\\MaxWu\\Documents\\GitHub\\DeepLearningIDS\\Datasets\\KDDTrain+.csv',
+    'Test':'C:\\Users\\MaxWu\\Documents\\GitHub\\DeepLearningIDS\\Datasets\\KDDTest+.csv',
+    'Minus21':'C:\\Users\\MaxWu\\Documents\\GitHub\\DeepLearningIDS\\Datasets\\KDDTest-21.csv'
+}
 
 #計算資料的特徵中有多少獨立項
 #print(raw_data.groupby('protocol_type').ngroups)
@@ -88,16 +91,25 @@ def ren_idx(in_df):
 def label_trans(in_df):
     # 1 represent the traffic is an attack
     # 0 represent the traffic is a normal traffic
-    for i in range(len(in_df[123])):
-        if (in_df.loc[i,123]) != 'normal':
-           in_df.loc[i,123] = 1
+    for i in range(len(in_df[122])):
+        if (in_df.loc[i,122]) != 'normal':
+           in_df.loc[i,122] = 1
         else:
-            in_df.loc[i,123] = 0
+            in_df.loc[i,122] = 0
 
-OneHotData = one_hot(raw_data)
-fir_norm(OneHotData)
-Processed_Data = sec_norm(OneHotData)
-ren_idx(Processed_Data)
-label_trans(Processed_Data)
+def execute(raw_data, idx):
+    OneHotData = one_hot(raw_data)
+    fir_norm(OneHotData)
+    Processed_Data = sec_norm(OneHotData)
+    ren_idx(Processed_Data)
+    label_trans(Processed_Data)
+    Processed_Data.to_csv('Processed_Data_%s.csv' % (idx),index=False,index_label=False)
 
-Processed_Data.to_csv('Processed_Data.csv',index=False,index_label=False)
+train_data = pd.read_csv(file_dict['Train'])
+execute(train_data, 'Train')
+
+test_data = pd.read_csv(file_dict['Test'])
+execute(test_data, 'Test')
+
+Minus21 = pd.read_csv(file_dict['Minus21'])
+execute(Minus21, 'Minus21')
