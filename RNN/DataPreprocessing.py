@@ -78,38 +78,36 @@ def sec_norm(in_df):
 
     return temp_data
 
-def ren_idx(in_df):
+def ren_idx(new_df, old_df):
     # This function main use to rename the index of the dataset
-    
-    # Create a new index set
-    new_idx = []
-    for i in range(123):
-        new_idx.append(i)
-
-    in_df.columns = new_idx
+    temp = []
+    for i in range(1,len(old_df.columns)):
+        temp.append(old_df.columns[i])
+    tempnew_df.columns[0])
+    new_df.columns = temp
 
 def label_trans(in_df):
     # 1 represent the traffic is an attack
     # 0 represent the traffic is a normal traffic
-    for i in range(len(in_df[122])):
-        if (in_df.loc[i,122]) != 'normal':
-           in_df.loc[i,122] = 1
+    for i in range(len(in_df['result'])):
+        if (in_df['result'][i]) != 'normal':
+           in_df['result'][i] = 1
         else:
-            in_df.loc[i,122] = 0
+            in_df['result'][i] = 0
 
 def execute(raw_data, idx):
     OneHotData = one_hot(raw_data)
     fir_norm(OneHotData)
     Processed_Data = sec_norm(OneHotData)
-    ren_idx(Processed_Data)
+    ren_idx(Processed_Data, OneHotData)
     label_trans(Processed_Data)
     Processed_Data.to_csv('Processed_Data_%s.csv' % (idx),index=False,index_label=False)
 
 train_data = pd.read_csv(file_dict['Train'])
 execute(train_data, 'Train')
 
-test_data = pd.read_csv(file_dict['Test'])
-execute(test_data, 'Test')
+#test_data = pd.read_csv(file_dict['Test'])
+#execute(test_data, 'Test')
 
-Minus21 = pd.read_csv(file_dict['Minus21'])
-execute(Minus21, 'Minus21')
+#Minus21 = pd.read_csv(file_dict['Minus21'])
+#execute(Minus21, 'Minus21')
