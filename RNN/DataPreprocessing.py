@@ -90,10 +90,12 @@ def label_trans(in_df):
     # 1 represent the traffic is an attack
     # 0 represent the traffic is a normal traffic
     for i in range(len(in_df['result'])):
-        if (in_df['result'][i]) != 'normal':
-           in_df['result'][i] = 1
+        if(in_df.loc[i,('result')]) != 'normal':
+            in_df.loc[i,('result')] = 1
+            print(in_df.loc[i,('result')])
         else:
-            in_df['result'][i] = 0
+            in_df.loc[i,('result')] = 0
+            print(in_df.loc[i,('result')])
 
 def execute(raw_data, idx):
     OneHotData = one_hot(raw_data)
