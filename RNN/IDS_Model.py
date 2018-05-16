@@ -10,14 +10,15 @@ import time
 #Claculate the training time
 start_time = time.time()
 
+#Load the file 
+file_dict = {
+    'Train':'Processed_Data_Train.csv'
+    'Test':'Processed_Data_Test'
+}
+train_data = pd.read_csv(file_dict['Train'])
+test_data = pd.read_csv(file_dict['Test'])
+
 #Read the training file path
-file_list = 'Processed_Data.csv'
-raw_data = pd.read_csv(file_path)
-
-test_file_path = ''
-test_data = 
-
-
 def trans_fl(data):
     # This function mainly to transfer the raw csv file to 
     # training features and labels. 
@@ -31,6 +32,7 @@ def trans_fl(data):
 
 # Prepare the training features and labels 
 train_features, train_labels = trans_fl(train_data)
+test_features, test_labels = train_fl(test_data)
 
 # Hyperparameters
 lr = 0.001 # Learning Rate : 優化函式降低loss的速度
