@@ -9,6 +9,9 @@ import time
 
 start_time = time.time()
 
+learning_rate = 0.5
+hidden_units = 240
+
 #Read the training file path
 file_dict = {
     'Train':'Processed_Data_Train.csv',
@@ -73,11 +76,10 @@ for i in range(len(minus_Labels)):
 minus_Labels = temp_labels
 minus_Labels = np.array(minus_Labels)
 
-learning_rate = 0.01
+
 n_classes = 2
 display_step = 10
 training_cycles = 100
-hidden_units = 20
 input_features = 122
 time_steps = 1
 
@@ -118,9 +120,9 @@ for i in range (training_cycles):
         print ("Cost for the training cycle : ",i," : is : ",sess.run(cost, feed_dict ={x :newtrain_X,y:newtrain_Y}))
 
 output_list = []
-print('Accuracy on the overall train set is :',(1-(sess.run(cost, feed_dict ={x :newtrain_X,y:newtrain_Y})))*100,'%')
+#print('Accuracy on the overall train set is :',(1-(sess.run(cost, feed_dict ={x :newtrain_X,y:newtrain_Y})))*100,'%')
 Train_acc = (1-(sess.run(cost, feed_dict ={x :newtrain_X,y:newtrain_Y})))*100
-output_list.append(Train_acc)
+output_list.append(round(Train_acc,2))
 
 
 Training_time = time.time() - start_time
@@ -129,20 +131,20 @@ Training_time = time.time() - start_time
 correct = tf.equal(tf.argmax(results, 1), tf.argmax(y,1))
 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))*100
 
-print('Accuracy on the overall test set is :',accuracy.eval({x:newtest_X, y:newtest_Y}),'%')
+#print('Accuracy on the overall test set is :',accuracy.eval({x:newtest_X, y:newtest_Y}),'%')
 Test_acc = accuracy.eval({x:newtest_X, y:newtest_Y})
-output_list.append(Test_acc)
+output_list.append(round(Test_acc,2))
 
 
 correct = tf.equal(tf.argmax(results, 1), tf.argmax(y,1))
 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))*100
 
-print('Accuracy on the overall minus set is :',accuracy.eval({x:newminus_X, y:newminus_Y}),'%')
-Minus_acc = accuracy.eval({x:newtest_X, y:newtest_Y})
-output_list.append(Minus_acc)
-output_list.append(Training_time)
-
-
+#print('Accuracy on the overall minus set is :',accuracy.eval({x:newminus_X, y:newminus_Y}),'%')
+Minus_acc = accuracy.eval({x:newminus_X, y:newminus_Y})
+output_list.append(round(Minus_acc,2))
+output_list.append(round(Training_time))
+print('\n')
+print(output_list)
 '''
 # tf.argmax = Returns the index with the largest value across axes of a tensor.
 # Therefore, we are extracting the final labels => '1 0' = '1' = Normal (and vice versa)
