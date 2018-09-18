@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:\\Users\\MaxWu\\AppData\\Local\\conda\\conda\\envs\\tensorflow\\python.exe",
+    "python.pythonPath": "/anaconda3/envs/tensorflow/bin/python",
     "python.linting.pylintEnabled": true,
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe"
 }
