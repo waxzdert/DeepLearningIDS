@@ -16,9 +16,9 @@ def parse(in_df, a_type):
             temp_list.append(train_data.loc[i])
     
     tf = pd.DataFrame(temp_list)
-    tf.to_csv("%s.csv" % a_type)
+    tf.to_csv("training_data_%s.csv" % a_type)
 
-parse(train_data, dos)
-parse(train_data, u2r)
-parse(train_data, r2l)
-parse(train_data, probe)
+parse(train_data, 'dos')
+parse(train_data, 'u2r')
+parse(train_data, 'r2l')
+parse(train_data, 'probe')
